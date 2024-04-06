@@ -6,13 +6,13 @@ import { useState } from "react";
 import {ACCESS_TOKEN } from "@/lib/constants";
 import {useRouter} from "next/navigation";
 
-type CatageoryType = {
+type CatagoryType = {
     name: string;
     icon: string;
 };
 
-type ProductPostType = {
-    category: CatageoryType;
+type ProductEditType = {
+    category: CatagoryType;
     name: string;
     desc: string;
     image: string;
@@ -74,6 +74,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Product() {
+    const router = useRouter();
     const handleUploadIcon = async (
         file: any,
         name: any,
@@ -95,7 +96,7 @@ export default function Product() {
         return data.image;
     };
 
-    const handleSubmitProduct = async (value: ProductPostType) => {
+    const handleSubmitProduct = async (value: ProductEditType) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/`, {
             method: "POST",
             headers: {
@@ -111,7 +112,8 @@ export default function Product() {
         }
         console.log("product upload: ", data)
     };
-    const router = useRouter()
+
+
     return (
         <main className={`${style.container}`}>
             <Formik
@@ -136,7 +138,7 @@ export default function Product() {
                     );
 
                     // create product post
-                    const productPost: ProductPostType = {
+                    const productPost: ProductEditType = {
                         category: {
                             name: values.categoryName,
                             icon: categoryIcon,

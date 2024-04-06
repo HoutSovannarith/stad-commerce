@@ -31,8 +31,8 @@ export default function NavBar() {
             <div className="flex md:order-2">
                 <Dropdown label="Choose Option" dismissOnClick={false}>
                     <Dropdown.Item href="/dashboard">Dashboard</Dropdown.Item>
-                    <Dropdown.Item>Earnings</Dropdown.Item>
-                    <Dropdown.Item>Sign out</Dropdown.Item>
+                    <Dropdown.Item href="/login">Log In</Dropdown.Item>
+                    <Dropdown.Item href="/signup">Sign out</Dropdown.Item>
                 </Dropdown>
                 <Navbar.Toggle />
             </div>

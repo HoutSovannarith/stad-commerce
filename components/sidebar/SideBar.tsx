@@ -21,6 +21,11 @@ const SideBar = () => {
             icon : <BiBarChart/>,
             link : "/dashboard"
         },
+        {
+            title : "Dashboard",
+            icon : <BiBarChart/>,
+            link : "/dashboard"
+        },
     ]
     return (
         <div className="flex">

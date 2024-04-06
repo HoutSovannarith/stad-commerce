@@ -35,9 +35,9 @@ const Dashboard = () => {
             name: 'Action',
             selector:(row):any =>
                 <div className="flex gap-4 cursor-pointer">
-                    <h1 onClick={() => router.push(`/products/view/${row.id}`)}><EyeIcon/></h1>
-                    <h1><EditIcon/></h1>
-                    <h1><TrashIcon/></h1>
+                    <h1 onClick={() => router.push(`/products/view/${row.id}`)}><EyeIcon className="bg-blue-600 p-1 text-white rounded"/></h1>
+                    <h1 onClick={() => router.push(`/products/edit/${row.id}`)}><EditIcon className="bg-yellow-400 p-1 text-white rounded"/></h1>
+                    <h1><TrashIcon className="bg-red-600 p-1 text-white rounded"/></h1>
                 </div>,
         }
     ];
@@ -76,7 +76,7 @@ const Dashboard = () => {
     };
 
   return (
-      <main className="p-4 w-screen">
+      <main className="p-4 w-full flex flex-col justify-between h-screen">
           <header className="flex items-center justify-between">
               <h1 className="text-3xl font-semibold">Dashboard</h1>
               <a href="/products/create" className="p-4 bg-blue-800 text-white rounded-xl left-10">Add Product</a>

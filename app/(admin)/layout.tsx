@@ -18,7 +18,7 @@ export default function RootLayout({
         <aside>
           <SideBar />
         </aside>
-        <main>{children}</main>
+        <main className="w-full">{children}</main>
       </body>
     </html>
   );

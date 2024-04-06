@@ -21,6 +21,7 @@ export default function ProductsPage(){
         const fetchData = async () => {
             const response = await fetch(`https://store.istad.co/api/products/?page=${currentPage}&page_size=10`);
             const data = await response.json();
+            console.log(data.results)
             setProducts(data.results);
             const totalPage = Math.ceil(data.total/10);
             setTotalPage(totalPage); // Assuming 10 items per page
