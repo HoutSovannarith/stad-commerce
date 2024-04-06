@@ -5,15 +5,26 @@ import {ProductType} from "@/lib/definittion";
 import {EditIcon, EyeIcon, TrashIcon} from "lucide-react";
 import {Pagination} from "flowbite-react";
 import {useRouter} from "next/navigation";
+import {ACCESS_TOKEN, BASE_URL} from "@/lib/constants";
 
 const Dashboard = () => {
+    const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null);
     const router = useRouter();
-
+    const handleDelete=(product:ProductType)=>{
+        const id=product.id
+        fetch(`${BASE_URL}/api/products/${id}/`,{
+            method:'DELETE',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${ACCESS_TOKEN}`
+            }})
+        setProducts(products.filter((product)=>product.id!==id))
+    }
     const columns: TableColumn<ProductType>[] = [
         {
             name: 'ID',
             selector: (row) => row.id,
-            sortable:true,
+            sortable: true,
         },
         {
             name: 'Name',
@@ -33,22 +44,31 @@ const Dashboard = () => {
         },
         {
             name: 'Action',
-            selector:(row):any =>
+            selector: (row): any =>
                 <div className="flex gap-4 cursor-pointer">
-                    <h1 onClick={() => router.push(`/products/view/${row.id}`)}><EyeIcon className="bg-blue-600 p-1 text-white rounded"/></h1>
-                    <h1 onClick={() => router.push(`/products/edit/${row.id}`)}><EditIcon className="bg-yellow-400 p-1 text-white rounded"/></h1>
-                    <h1><TrashIcon className="bg-red-600 p-1 text-white rounded"/></h1>
+                    <h1 onClick={() => router.push(`/products/view/${row.id}`)}><EyeIcon
+                        className="bg-blue-600 p-1 text-white rounded"/></h1>
+                    <h1 onClick={() => router.push(`/edit/${row.id}`)}><EditIcon
+                        className="bg-yellow-400 p-1 text-white rounded"/></h1>
+                    <h1 onClick={()=>handleDelete(row)}><TrashIcon className="bg-red-600 p-1 text-white rounded"  /></h1>
                 </div>,
+
         }
     ];
 
-
+    const handleUpdate = (product: ProductType) => {
+        setSelectedProduct(product);
+        router.push(`/products/edit/${product.id}`);
+        console.log("Lof",product)
+    };
     const [products, setProducts] = useState<ProductType[]>([])
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/`)
-            .then(res => res.json()).then(data => {setProducts(data.results)}).catch(err => console.log(err))
-    },[])
-    console.log(products)
+            .then(res => res.json()).then(data => {
+            setProducts(data.results)
+        }).catch(err => console.log(err))
+    }, [])
+    // console.log(products)
 
     const onPageChange = (page: number) => setCurrentPage(page);
     const [currentPage, setCurrentPage] = useState(1);
@@ -59,7 +79,7 @@ const Dashboard = () => {
             const response = await fetch(`https://store.istad.co/api/products/?page=${currentPage}&page_size=10`);
             const data = await response.json();
             setProducts(data.results);
-            const totalPage = Math.ceil(data.total/10);
+            const totalPage = Math.ceil(data.total / 10);
             setTotalPage(totalPage); // Assuming 10 items per page
 
         };
@@ -75,24 +95,24 @@ const Dashboard = () => {
         setCurrentPage(currentPage - 1);
     };
 
-  return (
-      <main className="p-4 w-full flex flex-col justify-between h-screen">
-          <header className="flex items-center justify-between">
-              <h1 className="text-3xl font-semibold">Dashboard</h1>
-              <a href="/products/create" className="p-4 bg-blue-800 text-white rounded-xl left-10">Add Product</a>
-          </header>
-          <DataTable
-              columns={columns}
-              data={products}
-              responsive={true}
-              fixedHeader={true}
-              className="w-full"
-          />
-          <div className="flex lg:justify-end justify-center">
-              <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange}/>
-          </div>
-      </main>
-  );
+    return (
+        <main className="p-4 w-full h-screen">
+            <header className="flex items-center justify-between">
+                <h1 className="text-3xl font-semibold">Dashboard</h1>
+                <a href="/products/create" className="p-4 bg-blue-800 text-white rounded-xl left-10">Add Product</a>
+            </header>
+            <DataTable
+                columns={columns}
+                data={products}
+                responsive={true}
+                fixedHeader={true}
+                className="w-full"
+            />
+            <div className="flex lg:justify-end justify-center">
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange}/>
+            </div>
+        </main>
+    );
 };
 
 export default Dashboard;
