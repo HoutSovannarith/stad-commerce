@@ -7,6 +7,13 @@ import type {Metadata} from "next";
 export const metadata: Metadata = {
   title: "STAD Commerce",
   description: "STAD Commerce is a platform for selling and buying products online.",
+  openGraph: {
+    title: "ISTAD Ecommerce Web",
+    description:
+        "ISTAD Ecommerce Web is a web application for selling products.",
+    images: "https://www.picmote.com/static/background.eb78315a.png",
+  },
+
 };
 
 export default function RootLayout({
