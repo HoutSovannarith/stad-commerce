@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import {BASE_URL} from "@/lib/constants";
 
 type Props = {
     params: { id: string };
@@ -6,7 +7,7 @@ type Props = {
 };
 
 const getData = async (id: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`);
+    const res = await fetch(`${BASE_URL}/api/products/${id}`);
     const data = await res.json();
     console.log(data.results);
     return data;

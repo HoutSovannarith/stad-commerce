@@ -3,6 +3,7 @@ import CardProduct from "@/components/card/CardProduct";
 import {useEffect, useState} from "react";
 import {Pagination} from "flowbite-react";
 import { useRouter } from "next/navigation";
+import {BASE_URL} from "@/lib/constants";
 
 export default function ProductsPage(){
 
@@ -10,7 +11,7 @@ export default function ProductsPage(){
     const [products, setProducts] = useState([])
     const router = useRouter();
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/`)
+        fetch(`${BASE_URL}/api/products/`)
             .then(res => res.json()).then(data => {setProducts(data.results)}).catch(err => console.log(err))
     },[])
     const onPageChange = (page: number) => setCurrentPage(page);
@@ -19,7 +20,7 @@ export default function ProductsPage(){
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`https://store.istad.co/api/products/?page=${currentPage}&page_size=10`);
+            const response = await fetch(`${BASE_URL}/api/products/?page=${currentPage}&page_size=10`);
             const data = await response.json();
             console.log(data.results)
             setProducts(data.results);

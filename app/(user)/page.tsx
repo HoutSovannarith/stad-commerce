@@ -5,12 +5,13 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {Feature} from "@/components/feature/Feature";
 import StatComponent from "@/components/stat/StatComponent";
+import {BASE_URL} from "@/lib/constants";
 
 export default function Home() {
     const [products, setProducts] = useState([])
     const router = useRouter();
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/`)
+        fetch(`${BASE_URL}/api/products/`)
             .then(res => res.json()).then(data => {setProducts(data.results)}).catch(err => console.log(err))
     },[])
     return (
