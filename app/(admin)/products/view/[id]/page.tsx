@@ -25,7 +25,7 @@ export default async function ViewDetailPage(props: Props) {
             <div className="container mx-auto px-4 py-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="flex justify-center">
-                        <img src={data.image} alt="Product" className="max-w-full" />
+                        <img src={data.image} alt="Product" className="h-[500px] w-[500px] object-cover overflow-hidden" />
                     </div>
                     <div>
                         <h1 className="text-3xl font-bold mb-4">{data.title}</h1>

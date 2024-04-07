@@ -1,5 +1,5 @@
 .container {
-    @apply grid place-content-center bg-gray-600;
+    @apply h-full grid place-content-center bg-gray-600;
 }
 
 .title {

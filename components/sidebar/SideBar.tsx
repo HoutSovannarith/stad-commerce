@@ -1,66 +1,103 @@
 'use client'
-import {useState} from "react";
-import Image from "next/image";
-import { BiBarChart } from "react-icons/bi";
+import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react"
+import { useContext, createContext, useState } from "react"
 
-const SideBar = () => {
-    const [open, setOpen] = useState(true)
-    const Menu = [
-        {
-            title : "Dashboard",
-            icon : <BiBarChart/>,
-            link : "/dashboard"
-        },
-        {
-            title : "Dashboard",
-            icon : <BiBarChart/>,
-            link : "/dashboard"
-        },
-        {
-            title : "Dashboard",
-            icon : <BiBarChart/>,
-            link : "/dashboard"
-        },
-        {
-            title : "Dashboard",
-            icon : <BiBarChart/>,
-            link : "/dashboard"
-        },
-    ]
+const SidebarContext = createContext({ expanded: true })
+
+export default function Sidebar({ children }:any) {
+    const [expanded, setExpanded] = useState(true)
+
     return (
-        <div className="flex">
-            <div className={`transition-all ${open ? "w-72" : "w-20"} duration-300 h-screen p-5 pt-8 bg-blue-800 relative`}>
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 320 512"
-                     onClick={() => setOpen(!open)}
-                     className={`absolute cursor-pointer -right-3 top-9 w-7 h-7 border-2 rounded-full bg-gray-300 ${!open && "rotate-180"}`}
-                >
-                    <path
-                        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/>
-                </svg>
-                <div className="flex gap-x-4 items-center">
+        <aside className="h-screen">
+            <nav className="h-full flex flex-col bg-white border-r shadow-sm">
+                <div className="p-4 pb-2 flex justify-between items-center">
                     <img
                         src="https://istad.co/resources/img/CSTAD_120.png"
-                        width={40}
-                        height={40}
-                        alt="logo"
-                        className={`cursor-pointer duration-500`}
+                        className={`overflow-hidden transition-all ${
+                            expanded ? "w-12" : "w-0"
+                        }`}
+                        alt="Logo"
                     />
-                    <h1 className={`text-white origin-left font-medium text-xl uppercase duration-300 ${!open && "scale-0"}`}>STAD-Commerce</h1>
+                    <button
+                        onClick={() => setExpanded((curr) => !curr)}
+                        className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+                    >
+                        {expanded ? <ChevronFirst /> : <ChevronLast />}
+                    </button>
                 </div>
-                <div>
-                    {Menu.map((menu:any, index:any) => (
-                        <a href={menu.link} key={index} className="text-gray-300 text-sm flex items-center">
-                            <div>{menu.icon}</div>
-                            <div className={`${!open && "scale-0"}`}>{menu.title}</div>
-                        </a>
-                    ))}
-                </div>
-            </div>
-            <div>
-            </div>
-        </div>
-    );
-};
 
-export default SideBar;
+                <SidebarContext.Provider value={{ expanded }}>
+                    <ul className="flex-1 px-3">{children}</ul>
+                </SidebarContext.Provider>
+
+                <div className="border-t flex p-3">
+                    <img
+                        src="https://istad.co/resources/img/CSTAD_120.png"
+                        alt=""
+                        className="w-10 h-10 rounded-md"
+                    />
+                    <div
+                        className={`
+              flex justify-between items-center
+              overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
+          `}
+                    >
+                        <div className="leading-4">
+                            <h4 className="font-semibold">Sovannarith</h4>
+                            <span className="text-xs text-gray-600">sovannarith@gmail.com</span>
+                        </div>
+                        <MoreVertical size={20} />
+                    </div>
+                </div>
+            </nav>
+        </aside>
+    )
+}
+
+export function SidebarItem({ icon, text, active, alert }:any) {
+    const { expanded } = useContext(SidebarContext)
+
+    return (
+        <li
+            className={`
+        relative flex items-center py-2 px-3 my-1
+        font-medium rounded-md cursor-pointer
+        transition-colors group
+        ${
+                active
+                    ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
+                    : "hover:bg-indigo-50 text-gray-600"
+            }
+    `}
+        >
+            {icon}
+            <span
+                className={`overflow-hidden transition-all ${
+                    expanded ? "w-52 ml-3" : "w-0"
+                }`}
+            >
+        {text}
+      </span>
+            {alert && (
+                <div
+                    className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
+                        expanded ? "" : "top-2"
+                    }`}
+                />
+            )}
+
+            {!expanded && (
+                <div
+                    className={`
+          absolute left-full rounded-md px-2 py-1 ml-6
+          bg-indigo-100 text-indigo-800 text-sm
+          invisible opacity-20 -translate-x-3 transition-all
+          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
+      `}
+                >
+                    {text}
+                </div>
+            )}
+        </li>
+    )
+}

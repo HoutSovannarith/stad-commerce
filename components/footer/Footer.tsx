@@ -12,7 +12,7 @@ function FooterComponent() {
                     <div>
                         <Footer.Brand
                             href="/"
-                            src="./icon.png"
+                            src="https://istad.co/resources/img/CSTAD_120.png"
                             alt="STAD-COMMERCE"
                             name="STAD-COMMERCE"
                         />
@@ -21,8 +21,8 @@ function FooterComponent() {
                         <div>
                             <Footer.Title title="about" />
                             <Footer.LinkGroup col>
-                                <Footer.Link href="#">Flowbite</Footer.Link>
-                                <Footer.Link href="#">Tailwind CSS</Footer.Link>
+                                <Footer.Link href="#">About Us</Footer.Link>
+                                <Footer.Link href="#">Contact Us</Footer.Link>
                             </Footer.LinkGroup>
                         </div>
                         <div>

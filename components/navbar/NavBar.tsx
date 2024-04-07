@@ -29,7 +29,7 @@ export default function NavBar() {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white uppercase">Stad-Commerce</span>
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Dropdown label="Choose Option" dismissOnClick={false}>
+                <Dropdown label="Option" dismissOnClick={false}>
                     <Dropdown.Item href="/dashboard">Dashboard</Dropdown.Item>
                     <Dropdown.Item href="/login">Log In</Dropdown.Item>
                     <Dropdown.Item href="/signup">Sign out</Dropdown.Item>
