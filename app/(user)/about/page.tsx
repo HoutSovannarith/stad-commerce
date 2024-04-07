@@ -10,7 +10,7 @@ const About = () => {
                     Welcome to STAD Commerce, your ultimate destination for online shopping. Founded in 2024, we strive to provide customers with an unparalleled shopping experience, offering a wide range of products and exceptional service.
                 </p>
                 <p className="text-lg text-gray-700 mb-6">
-                    At STAD Commerce, we believe in innovation, quality, and customer satisfaction. Our dedicated team works tirelessly to curate a selection of products that cater to diverse needs and preferences. From electronics and fashion to home goods and beyond, we've got something for everyone.
+                    At STAD Commerce, we believe in innovation, quality, and customer satisfaction. Our dedicated team works tirelessly to curate a selection of products that cater to diverse needs and preferences. From electronics and fashion to home goods and beyond, we&apos;ve got something for everyone.
                 </p>
                 <p className="text-lg text-gray-700 mb-6">
                     Our commitment to excellence extends beyond our product offerings. We prioritize transparency, security, and reliability in every aspect of our business, ensuring that you can shop with confidence.
